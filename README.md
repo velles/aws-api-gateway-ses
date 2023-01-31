@@ -26,7 +26,7 @@ Replace `my-aws-account` with your AWS profile name.
 
 ## Manual Tests
 
-Use this CURL, replace `AWS-API-GATEWAY-URL` with your coresponign API Gateway link.
+Use this CURL, replace `AWS-API-GATEWAY-URL` with your corresponding API Gateway link.
 It can be found under **Dashboard** in AWS CLI or as the output of the CDK deployment.
 
 - RUN:
