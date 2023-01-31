@@ -37,6 +37,13 @@
     "@aws-cdk/core:target-partitions": [
       "aws",
       "aws-cn"
-    ]
+    ],
+    "config": {
+      "services": {
+        "api-gateway": {
+          "endpointtype": "REGIONAL"
+        }
+      }
+    }
   }
 }
