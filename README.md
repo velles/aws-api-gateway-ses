@@ -2,7 +2,7 @@
 
 Contact Us API & email delivery with AWS [API Gateway](https://aws.amazon.com/api-gateway/) and [AWS SES](https://aws.amazon.com/ses/), written with [AWS CDK](https://docs.aws.amazon.com/cdk/v2/guide/getting_started.html)
 
-# main CI-BADGE-TODO
+# main [![CircleCI](https://dl.circleci.com/status-badge/img/gh/velles/aws-api-gateway-ses/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/velles/aws-api-gateway-ses/tree/main)
 
 
 # Deployment Requirements
