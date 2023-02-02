@@ -8,10 +8,8 @@ export class AwsApiGatewaySesStack extends cdk.Stack {
   constructor(app: Construct, id: string, props?: cdk.StackProps) {
     super(app, id, props);
 
-    // Gest the default AWS Env variables from cdk.json
-    const config = app.node.tryGetContext('config');
-    const region = cdk.Stack.of(this).region // Extract Dynamicly from CLI profile
-    // const account = cdk.Stack.of(this).account // Extract Dynamicly from CLI profile
+    // Extract Dynamicly from CLI profile
+    const region = cdk.Stack.of(this).region 
 
     /*
      * SES Integration
@@ -95,9 +93,7 @@ End of Message")`,
      *  - Add API Gateway Resources
      *  - Add API Gateway Method with Integration
      */
-    const apiGateway = new ApiGateway(this, 'apiGatewayInstance', { 
-      config
-    })
+    const apiGateway = new ApiGateway(this, 'apiGatewayInstance', {})
     // API Gateway Namespace - v1 - optional
     const v1GatewayAPINamespace = apiGateway.IRestApi.root.addResource('v1'); 
     const contactUsResource = v1GatewayAPINamespace.addResource('contact_us');

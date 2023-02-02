@@ -2,10 +2,6 @@ import * as cdk from 'aws-cdk-lib';
 import * as apigateway from 'aws-cdk-lib/aws-apigateway';
 import { Construct } from 'constructs';
 
-export interface APIGatewayProps extends cdk.StackProps {
-  readonly config: string;
-};
-
 /** 
 * API Gateway
 *  In this set up we are using the default stage - 'dev' and an additional stage - 'live'
@@ -17,12 +13,8 @@ export interface APIGatewayProps extends cdk.StackProps {
 export class ApiGateway extends Construct {
   public readonly IRestApi: apigateway.IRestApi;
 
-  constructor(scope: Construct, id: string, props: APIGatewayProps) {
+  constructor(scope: Construct, id: string, props: cdk.StackProps) {
     super(scope, id);
-    
-    const {
-      config
-    } = props
 
     /** 
     * API Gateway Instance with default stage - 'dev'
