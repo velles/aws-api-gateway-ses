@@ -29,9 +29,22 @@ Replace `my-aws-account` with your AWS profile name.
 Use this CURL, replace `AWS-API-GATEWAY-URL` with your corresponding API Gateway link.
 It can be found under **Dashboard** in AWS CLI or as the output of the CDK deployment.
 
-- RUN:
+- WITH NO API KEY (replace `AWS-API-GATEWAY-URL-CHANGE-ME`):
 ```bash
-curl --location --request POST 'AWS-API-GATEWAY-URL/live/v1/contact_us' \
+curl --location --request POST 'AWS-API-GATEWAY-URL-CHANGE-ME/live/v1/contact_us' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "name": "John Doe",
+  "email": "john@test.com",
+  "phone": "818-123-4567",
+  "message": "Please contact me. I love your AWS SES integration!"
+}'
+```
+
+- WITH API KEY ENABLED (replace `AWS-API-GATEWAY-URL-CHANGE-ME` and `API-KEY-CHANGE-ME`) :
+```bash
+curl --location --request POST 'AWS-API-GATEWAY-URL-CHANGE-ME/live/v1/contact_us' \
+--header 'x-api-key: API-KEY-CHANGE-ME' \
 --header 'Content-Type: application/json' \
 --data-raw '{
   "name": "John Doe",

@@ -30,6 +30,8 @@ test('Empty Stack', () => {
 
   // Assert
   // console.log(JSON.stringify(template.toJSON(), null, 4));
+
+  // Check the AWS::ApiGateway::Method resource
   template.hasResourceProperties('AWS::ApiGateway::Method', 
   {
     "HttpMethod": "POST",
@@ -107,5 +109,37 @@ test('Empty Stack', () => {
         "StatusCode": "500"
       }
     ]
+  })
+
+  // Check the AWS::ApiGateway::UsagePlan resource
+  template.hasResourceProperties('AWS::ApiGateway::UsagePlan', {
+    "ApiStages": [
+        {
+            "ApiId": {
+                "Ref":  Match.anyValue()
+            },
+            "Stage": {
+                "Ref": Match.anyValue()
+            },
+            "Throttle": {}
+        }
+    ],
+    "Description": "Contact Us Form API Plan",
+    "Throttle": {
+        "BurstLimit": 10,
+        "RateLimit": 100
+    },
+    "UsagePlanName": "ContactUsFormPlan"
+  })
+
+  // Check the AWS::ApiGateway::UsagePlanKey resource
+  template.hasResourceProperties('AWS::ApiGateway::UsagePlanKey', {
+    "KeyId": {
+        "Ref":  Match.anyValue()
+    },
+    "KeyType": "API_KEY",
+    "UsagePlanId": {
+        "Ref":  Match.anyValue()
+    }
   })
 });

@@ -11,6 +11,9 @@ export class AwsApiGatewaySesStack extends cdk.Stack {
     // Extract Dynamicly from CLI profile
     const region = cdk.Stack.of(this).region 
 
+    /* Identifies if Plan & API key should be created */
+    const withPlan = true;
+
     /*
      * SES Integration
      *  - 
@@ -93,7 +96,7 @@ End of Message")`,
      *  - Add API Gateway Resources
      *  - Add API Gateway Method with Integration
      */
-    const apiGateway = new ApiGateway(this, 'apiGatewayInstance', {})
+    const apiGateway = new ApiGateway(this, 'apiGatewayInstance', {withPlan})
     // API Gateway Namespace - v1 - optional
     const v1GatewayAPINamespace = apiGateway.IRestApi.root.addResource('v1'); 
     const contactUsResource = v1GatewayAPINamespace.addResource('contact_us');
@@ -102,6 +105,7 @@ End of Message")`,
       'POST',
       sesIntegration, // Add the SES Integration as the Mothod destination
       {
+        apiKeyRequired: withPlan, // API Key Required
         methodResponses: [
           { statusCode: "200" }, 
           { statusCode: "400" },

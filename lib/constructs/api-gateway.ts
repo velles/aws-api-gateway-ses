@@ -2,6 +2,11 @@ import * as cdk from 'aws-cdk-lib';
 import * as apigateway from 'aws-cdk-lib/aws-apigateway';
 import { Construct } from 'constructs';
 
+export interface APIGatewayProps extends cdk.StackProps {
+  readonly withPlan?: boolean;
+};
+
+
 /** 
 * API Gateway
 *  In this set up we are using the default stage - 'dev' and an additional stage - 'live'
@@ -13,9 +18,12 @@ import { Construct } from 'constructs';
 export class ApiGateway extends Construct {
   public readonly IRestApi: apigateway.IRestApi;
 
-  constructor(scope: Construct, id: string, props: cdk.StackProps) {
+  constructor(scope: Construct, id: string, props: APIGatewayProps) {
     super(scope, id);
 
+    const {
+      withPlan
+    } = props
     /** 
     * API Gateway Instance with default stage - 'dev'
     */
@@ -113,6 +121,31 @@ export class ApiGateway extends Construct {
         'application/json': '{ "message": "Access Token Missing", "statusCode": "401", "type": "$context.error.responseType" }'
       }
     });
+
+
+    /**
+     * Set up Plan and API Key
+     */
+    if (withPlan) {
+      const apiPlan = endpointsGateway.addUsagePlan('ContactUsFormPlan', {
+        name: 'ContactUsFormPlan',
+        description: 'Contact Us Form API Plan',
+        throttle: {
+          burstLimit: 10, // requests per second
+          rateLimit: 100
+        }
+      })
+
+      apiPlan.addApiStage({ stage: liveStage })
+      const apiKey = new apigateway.ApiKey(this, 'ApiGatewayApiKey', {
+        apiKeyName: 'ContactUsFormKey',
+        description: 'Contact Us Form API Key',
+        enabled: true,
+        stages: [liveStage]   
+      })
+
+      apiPlan.addApiKey(apiKey)
+    }
 
     this.IRestApi = endpointsGateway
   } 
