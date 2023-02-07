@@ -54,7 +54,7 @@ export class ApiGateway extends Construct {
     */
     const liveStageDeployment = new apigateway.Deployment(this,  'ApiGatewayLiveStageDeployment', {
       api: endpointsGateway,
-      description: "XPASS 2.0 API Endpoints",
+      description: "Contact Us Form - Live stage - Deployment",
       retainDeployments: true
     })
     // need to change deployment hash to force new deployment
