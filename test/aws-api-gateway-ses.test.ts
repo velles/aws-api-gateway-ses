@@ -52,6 +52,9 @@ test('Empty Stack', () => {
       "IntegrationHttpMethod": "POST",
       "IntegrationResponses": [
         {
+          "ResponseParameters": {
+            "method.response.header.Access-Control-Allow-Origin": "'*'"
+          },
           "ResponseTemplates": {
             "application/json": "{\"message\": \"Email sent!\"}"
           },
@@ -78,7 +81,7 @@ test('Empty Stack', () => {
         "integration.request.header.Content-Type": "'application/x-www-form-urlencoded'"
       },
       "RequestTemplates": {
-        "application/json": "Action=SendEmail&Message.Body.Text.Data=$util.urlEncode(\"\n\nNew Contact US Form Submission\n\nStart of Message\r\n--------------------------------\n\nName: $input.json('$.name')\r\nEmail: $input.json('$.email') \r\nPhone: $input.json('$.phone') \r\nMessage: $input.json('$.message') \n\n-------------------------------- \r\nEnd of Message\")&Message.Subject.Data=Contact+form+submission&Destination.ToAddresses.member.1=recipient@your_domain.com&Source=no_reply@your_domain.com"
+        "application/json": "Action=SendEmail&Message.Body.Text.Data=$util.urlEncode(\"\n\nNew Contact US Form Submission\n\nStart of Message\r\n--------------------------------\n\nName: $input.json('$.name')\r\nEmail: $input.json('$.email') \r\nPhone: $input.json('$.phone') \r\nMessage: $input.json('$.message') \n\n-------------------------------- \r\nEnd of Message\")&Message.Subject.Data=Contact+form+submission&Destination.ToAddresses.member.1=vel@captainme.ai&Source=vel@captainme.ai"
       },
       "Type": "AWS",
       "Uri": {
@@ -100,6 +103,11 @@ test('Empty Stack', () => {
     },
     "MethodResponses": [
       {
+        "ResponseParameters": {
+          "method.response.header.Access-Control-Allow-Headers": true,
+          "method.response.header.Access-Control-Allow-Credentials": true,
+          "method.response.header.Access-Control-Allow-Origin": true
+        },
         "StatusCode": "200"
       },
       {

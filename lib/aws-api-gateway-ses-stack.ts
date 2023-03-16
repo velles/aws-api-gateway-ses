@@ -71,6 +71,9 @@ End of Message")`,
             selectionPattern: '2\\d{2}',
             responseTemplates: {
               'application/json': '{"message": "Email sent!"}'
+            },
+            responseParameters: {
+              'method.response.header.Access-Control-Allow-Origin': "'*'", // Allow all origins, TODO: - Change to your domain
             }
           },
           {
@@ -107,11 +110,23 @@ End of Message")`,
       {
         apiKeyRequired: withPlan, // API Key Required
         methodResponses: [
-          { statusCode: "200" }, 
+          { 
+            statusCode: "200",
+            responseParameters: {
+              'method.response.header.Access-Control-Allow-Headers': true,
+              'method.response.header.Access-Control-Allow-Credentials': true,
+              'method.response.header.Access-Control-Allow-Origin': true,
+            }
+          }, 
           { statusCode: "400" },
           { statusCode: "500" }
         ]
       }
     )
+
+    contactUsResource.addCorsPreflight({ 
+      allowOrigins: [ '*' ], // Allow all origins, TODO: - Change to your domain
+      allowMethods: [ 'POST' ]
+    });
   }
 }
