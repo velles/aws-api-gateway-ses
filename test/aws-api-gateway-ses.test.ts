@@ -1,4 +1,3 @@
-// import * as cdk from 'aws-cdk-lib';
 import * as cdk from 'aws-cdk-lib';
 import { Template, Match } from 'aws-cdk-lib/assertions';;
 import { AwsApiGatewaySesStack } from '../lib/aws-api-gateway-ses-stack';
@@ -81,7 +80,7 @@ test('Empty Stack', () => {
         "integration.request.header.Content-Type": "'application/x-www-form-urlencoded'"
       },
       "RequestTemplates": {
-        "application/json": "Action=SendEmail&Message.Body.Text.Data=$util.urlEncode(\"\n\nNew Contact US Form Submission\n\nStart of Message\r\n--------------------------------\n\nName: $input.json('$.name')\r\nEmail: $input.json('$.email') \r\nPhone: $input.json('$.phone') \r\nMessage: $input.json('$.message') \n\n-------------------------------- \r\nEnd of Message\")&Message.Subject.Data=Contact+form+submission&Destination.ToAddresses.member.1=vel@captainme.ai&Source=vel@captainme.ai"
+        "application/json": "Action=SendEmail&Message.Body.Text.Data=$util.urlEncode(\"\n\nNew Contact US Form Submission\n\nStart of Message\r\n--------------------------------\n\nName: $input.json('$.name')\r\nEmail: $input.json('$.email') \r\nPhone: $input.json('$.phone') \r\nMessage: $input.json('$.message') \n\n-------------------------------- \r\nEnd of Message\")&Message.Subject.Data=Contact+form+submission&Destination.ToAddresses.member.1=recipient@your_domain.com&Source=no_reply@your_domain.com"
       },
       "Type": "AWS",
       "Uri": {
